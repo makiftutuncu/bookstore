@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  bookstore:
+    container_name: bookstore
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - bookstore:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=bookstore
+      - POSTGRES_PASSWORD=bookstore
+      - POSTGRES_DB=bookstore
+
+  bookstore-test:
+    image: postgres
+    ports:
+      - 5433:5432
+    volumes:
+      - bookstore-test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=bookstore-test
+      - POSTGRES_PASSWORD=bookstore-test
+      - POSTGRES_DB=bookstore-test
+
+volumes:
+  bookstore:
+    driver: local
+
+  bookstore-test:
+    driver: local
