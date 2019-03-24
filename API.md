@@ -2,20 +2,20 @@
 
 Here is an overview of the APIs:
 
-| Method | URL                                | Description                               |
-| ------ | ---------------------------------- | ----------------------------------------- |
-| GET    | /authors                           | Get all authors                           |
-| GET    | /authors/`authorId`                | Get author `authorId`                     |
-| GET    | /authors/`authorId`/books/`bookId` | Get book `bookId` of author `authorId`    |
-| GET    | /authors?name=`name`               | Get authors by `name`                     |
-| GET    | /books                             | Get all books                             |
-| GET    | /books?name=`name`                 | Get books by `name`                       |
-| POST   | /authors                           | Create a new author                       |
-| POST   | /authors/`authorId`/books          | Create a book for author `authorId`       |
-| PUT    | /authors/`authorId`                | Update author `authorId`                  |
-| PUT    | /authors/`authorId`/books/`bookId` | Update book `bookId` of author `authorId` |
-| DELETE | /authors/`authorId`                | Delete author `authorId`                  |
-| DELETE | /authors/`authorId`/books/`bookId` | Delete book `bookId` of author `authorId` |
+| Method | URL                                | Link                                       |
+| ------ | ---------------------------------- | ------------------------------------------ |
+| GET    | /authors                           | [Jump](#get-authors)                       |
+| GET    | /authors/`authorId`                | [Jump](#get-authorsauthorid)               |
+| GET    | /authors/`authorId`/books/`bookId` | [Jump](#get-authorsauthoridbooksbookid)    |
+| GET    | /authors?name=`name`               | [Jump](#get-authorsnamename)               |
+| GET    | /books                             | [Jump](#get-books)                         |
+| GET    | /books?name=`name`                 | [Jump](#get-booksnamename)                 |
+| POST   | /authors                           | [Jump](#post-authors)                      |
+| POST   | /authors/`authorId`/books          | [Jump](#post-authorsauthoridbooks)         |
+| PUT    | /authors/`authorId`                | [Jump](#put-authorsauthorid)               |
+| PUT    | /authors/`authorId`/books/`bookId` | [Jump](#put-authorsauthoridbooksbookid)    |
+| DELETE | /authors/`authorId`                | [Jump](#delete-authorsauthorid)            |
+| DELETE | /authors/`authorId`/books/`bookId` | [Jump](#delete-authorsauthoridbooksbookid) |
 
 All handled errors return an error Json in following format:
 
