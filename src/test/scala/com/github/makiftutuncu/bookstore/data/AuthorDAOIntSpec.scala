@@ -25,7 +25,7 @@ class AuthorDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   lazy val mockAuthorDAO: AuthorDAO[Id] = new AuthorDAO[Id](failingDatabase)
 
   "Getting all authors" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val expected = Errors.database(testException)
 
       val result = mockAuthorDAO.getAll
@@ -53,7 +53,7 @@ class AuthorDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Getting an author by id" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val expected = Errors.database(testException)
 
       val result = mockAuthorDAO.getById(UUID.randomUUID)
@@ -83,7 +83,7 @@ class AuthorDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Getting authors by name" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val expected = Errors.database(testException)
 
       val result = mockAuthorDAO.getByName("test")
@@ -116,7 +116,7 @@ class AuthorDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Creating an author" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val author = CreateAuthorView("test")
 
       val expected = Errors.database(testException)
@@ -152,7 +152,7 @@ class AuthorDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Updating an author" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val expected = Errors.database(testException)
 
       val result = mockAuthorDAO.update(UUID.randomUUID, UpdateAuthorView("test"))
@@ -197,7 +197,7 @@ class AuthorDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Deleting an author" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val expected = Errors.database(testException)
 
       val result = mockAuthorDAO.delete(UUID.randomUUID)

@@ -16,7 +16,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   override lazy val authorService: AuthorService[Id] = new AuthorService[Id](mockAuthorDAO)
 
   "Getting all authors" should {
-    "return error when getting all authors from DB fails" in {
+    "return error when there is a DB error" in {
       val error = Errors.database("test")
 
       when(mockAuthorDAO.getAll).thenReturn(Maybe.error(error))
@@ -38,7 +38,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Getting an author by id" should {
-    "return error when getting the author from DB fails" in {
+    "return error when there is a DB error" in {
       val id    = UUID.randomUUID
       val error = Errors.database("test")
 
@@ -49,7 +49,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
       result should haveError[AuthorView](error)
     }
 
-    "return an author as author view" in {
+    "return the author as author view" in {
       val author = TestAuthors.mehmetAkifTutuncu
 
       when(mockAuthorDAO.getById(author.id)).thenReturn(Maybe.value(author))
@@ -63,7 +63,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Getting authors by name" should {
-    "return error when getting authors from DB fails" in {
+    "return error when there is a DB error" in {
       val error = Errors.database("test")
 
       when(mockAuthorDAO.getByName("test")).thenReturn(Maybe.error(error))
@@ -73,7 +73,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
       result should haveError[List[AuthorView]](error)
     }
 
-    "return some authors as author views" in {
+    "return the authors as author views" in {
       val author = TestAuthors.mehmetAkifTutuncu
 
       when(mockAuthorDAO.getByName(author.name)).thenReturn(Maybe.value(List(author)))
@@ -87,7 +87,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Creating an author" should {
-    "return error when creating author on DB fails" in {
+    "return error when there is a DB error" in {
       val createView = CreateAuthorView("")
       val error      = Errors.database("test")
 
@@ -141,7 +141,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Deleting an author" should {
-    "return error when deleting the author from DB fails" in {
+    "return error when there is a DB error" in {
       val id    = UUID.randomUUID
       val error = Errors.database("test")
 

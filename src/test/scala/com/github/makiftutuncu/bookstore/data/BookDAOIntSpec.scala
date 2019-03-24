@@ -25,7 +25,7 @@ class BookDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   lazy val mockBookDAO: BookDAO[Id] = new BookDAO[Id](failingDatabase)
 
   "Getting all books" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val expected = Errors.database(testException)
 
       val result = mockBookDAO.getAll
@@ -53,7 +53,7 @@ class BookDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Getting a book by author id and book id" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val expected = Errors.database(testException)
 
       val result = mockBookDAO.getByAuthorIdAndBookId(UUID.randomUUID, UUID.randomUUID)
@@ -85,7 +85,7 @@ class BookDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Getting books by name" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val expected = Errors.database(testException)
 
       val result = mockBookDAO.getByName("test")
@@ -113,7 +113,7 @@ class BookDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Creating a book" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val createView = CreateBookView("ISBN", "Test", 100)
 
       val expected = Errors.database(testException)
@@ -165,7 +165,7 @@ class BookDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Updating a book" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val authorId   = UUID.randomUUID
       val bookId     = UUID.randomUUID
       val updateView = UpdateBookView("", "", 1)
@@ -208,7 +208,7 @@ class BookDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
   }
 
   "Deleting a book" should {
-    "return error when there is an unknown error" in {
+    "return error when there is a DB error" in {
       val authorId = UUID.randomUUID
       val bookId   = UUID.randomUUID
 
