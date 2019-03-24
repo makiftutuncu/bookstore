@@ -53,6 +53,12 @@ with an HTTP status same as `code` field.
 
 Bookstore is built with SBT. So, standard SBT tasks like `clean`, `compile` and `run` can be used.
 
+In order to get the database set up, you may simply use `docker-compose` by doing
+
+```docker-compose up -d```
+
+This will fire up a PostgreSQL database for running the application and another one for running tests.
+
 ## Testing
 
 To run all the tests, use `test` task of SBT.
