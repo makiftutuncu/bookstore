@@ -51,9 +51,37 @@ class BookControllerFunSpec extends FunSpec with TestData with BeforeAndAfterEac
   }
 
   "Getting a book by author id and book id" should {
-    "return not found error when book doesn't exist" in {
+    "return not found error when author doesn't exist" in {
       val authorId = UUID.randomUUID
+      val bookId   = TestBooks.icimizdekiSeytan.id
+      val error    = Errors.notFound("Book", "authorId" -> authorId.toString, "bookId" -> bookId.toString)
+
+      val body = {
+        val maybe = getRequest(bookController.getByAuthorIdAndBookId, s"/authors/$authorId/books/$bookId", status = Status.fromCode(error.code))
+        maybe.isDefined shouldBe true
+        maybe.get
+      }
+
+      body shouldBe error.asJson
+    }
+
+    "return not found error when book doesn't exist" in {
+      val authorId = TestAuthors.mehmetAkifTutuncu.id
       val bookId   = UUID.randomUUID
+      val error    = Errors.notFound("Book", "authorId" -> authorId.toString, "bookId" -> bookId.toString)
+
+      val body = {
+        val maybe = getRequest(bookController.getByAuthorIdAndBookId, s"/authors/$authorId/books/$bookId", status = Status.fromCode(error.code))
+        maybe.isDefined shouldBe true
+        maybe.get
+      }
+
+      body shouldBe error.asJson
+    }
+
+    "return not found error when book doesn't belong to given author" in {
+      val authorId = TestAuthors.mehmetAkifTutuncu.id
+      val bookId   = TestBooks.icimizdekiSeytan.id
       val error    = Errors.notFound("Book", "authorId" -> authorId.toString, "bookId" -> bookId.toString)
 
       val body = {
@@ -81,7 +109,7 @@ class BookControllerFunSpec extends FunSpec with TestData with BeforeAndAfterEac
   }
 
   "Creating a new book" should {
-    "return required error when given author id doesn't exist" in {
+    "return required error when given author doesn't exist" in {
       val authorId = UUID.randomUUID
       val payload  = CreateBookView("ISBN5", "Test", 100)
       val error    = Errors.required("author_id", authorId.toString, "authors")
@@ -144,9 +172,39 @@ class BookControllerFunSpec extends FunSpec with TestData with BeforeAndAfterEac
   }
 
   "Updating a book" should {
-    "return unexpected action error when the book is not found" in {
+    "return unexpected action error when the author is not found" in {
       val authorId = UUID.randomUUID
+      val bookId   = TestBooks.icimizdekiSeytan.id
+      val payload  = UpdateBookView("", "", 1)
+      val error    = Errors.unexpectedAction("update", 1, "book", 0)
+
+      val body = {
+        val maybe = putRequest(bookController.update, s"/authors/$authorId/books/$bookId", payload.asJson, Status.fromCode(error.code))
+        maybe.isDefined shouldBe true
+        maybe.get
+      }
+
+      body shouldBe error.asJson
+    }
+
+    "return unexpected action error when the book is not found" in {
+      val authorId = TestAuthors.mehmetAkifTutuncu.id
       val bookId   = UUID.randomUUID
+      val payload  = UpdateBookView("", "", 1)
+      val error    = Errors.unexpectedAction("update", 1, "book", 0)
+
+      val body = {
+        val maybe = putRequest(bookController.update, s"/authors/$authorId/books/$bookId", payload.asJson, Status.fromCode(error.code))
+        maybe.isDefined shouldBe true
+        maybe.get
+      }
+
+      body shouldBe error.asJson
+    }
+
+    "return unexpected action error when the book doesn't belong to the author" in {
+      val authorId = TestAuthors.mehmetAkifTutuncu.id
+      val bookId   = TestBooks.icimizdekiSeytan.id
       val payload  = UpdateBookView("", "", 1)
       val error    = Errors.unexpectedAction("update", 1, "book", 0)
 
@@ -195,9 +253,37 @@ class BookControllerFunSpec extends FunSpec with TestData with BeforeAndAfterEac
   }
 
   "Deleting a book" should {
-    "return unexpected action error when the book is not found" in {
+    "return unexpected action error when the author is not found" in {
       val authorId = UUID.randomUUID
+      val bookId   = TestBooks.icimizdekiSeytan.id
+      val error    = Errors.unexpectedAction("delete", 1, "book", 0)
+
+      val body = {
+        val maybe = deleteRequest(bookController.delete, s"/authors/$authorId/books/$bookId", Status.fromCode(error.code))
+        maybe.isDefined shouldBe true
+        maybe.get
+      }
+
+      body shouldBe error.asJson
+    }
+
+    "return unexpected action error when the book is not found" in {
+      val authorId = TestAuthors.mehmetAkifTutuncu.id
       val bookId   = UUID.randomUUID
+      val error    = Errors.unexpectedAction("delete", 1, "book", 0)
+
+      val body = {
+        val maybe = deleteRequest(bookController.delete, s"/authors/$authorId/books/$bookId", Status.fromCode(error.code))
+        maybe.isDefined shouldBe true
+        maybe.get
+      }
+
+      body shouldBe error.asJson
+    }
+
+    "return unexpected action error when the book doesn't belong to the author" in {
+      val authorId = TestAuthors.mehmetAkifTutuncu.id
+      val bookId   = TestBooks.icimizdekiSeytan.id
       val error    = Errors.unexpectedAction("delete", 1, "book", 0)
 
       val body = {

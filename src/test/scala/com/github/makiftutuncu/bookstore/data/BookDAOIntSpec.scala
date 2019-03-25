@@ -61,9 +61,31 @@ class BookDAOIntSpec extends IntSpec with TestData with BeforeAndAfterEach {
       result should haveError[Book](expected)
     }
 
-    "return not found error when there is no book with given author id and book id" in {
+    "return not found error when there is no author with given id" in {
       val authorId = UUID.randomUUID
+      val bookId   = TestBooks.icimizdekiSeytan.id
+
+      val expected = Errors.notFound("Book", "authorId" -> authorId.toString, "bookId" -> bookId.toString)
+
+      val result = bookDAO.getByAuthorIdAndBookId(authorId, bookId)
+
+      result should haveError[Book](expected)
+    }
+
+    "return not found error when there is no book with given id" in {
+      val authorId = TestAuthors.mehmetAkifTutuncu.id
       val bookId   = UUID.randomUUID
+
+      val expected = Errors.notFound("Book", "authorId" -> authorId.toString, "bookId" -> bookId.toString)
+
+      val result = bookDAO.getByAuthorIdAndBookId(authorId, bookId)
+
+      result should haveError[Book](expected)
+    }
+
+    "return not found error when book with given id doesn't belong to the author with given id" in {
+      val authorId = TestAuthors.mehmetAkifTutuncu.id
+      val bookId   = TestBooks.icimizdekiSeytan.id
 
       val expected = Errors.notFound("Book", "authorId" -> authorId.toString, "bookId" -> bookId.toString)
 

@@ -6,6 +6,7 @@ Here is an overview of the APIs:
 | ------ | ---------------------------------- | ------------------------------------------ |
 | GET    | /authors                           | [Jump](#get-authors)                       |
 | GET    | /authors/`authorId`                | [Jump](#get-authorsauthorid)               |
+| GET    | /authors/`authorId`/books          | [Jump](#get-authorsauthoridbooks)          |
 | GET    | /authors/`authorId`/books/`bookId` | [Jump](#get-authorsauthoridbooksbookid)    |
 | GET    | /authors?name=`name`               | [Jump](#get-authorsnamename)               |
 | GET    | /books                             | [Jump](#get-books)                         |
@@ -70,6 +71,41 @@ Returns an author as a Json object
   "id": "UUID-1",
   "name": "Author 1"
 }
+```
+
+#### Possible Errors
+
+| What      | When                             |
+| --------- | -------------------------------- |
+| Not found | There is no author with given id |
+
+---
+
+### GET /authors/`authorId`/books
+
+**TODO: This is not implemented yet!**
+
+Returns a list of books of an author as a Json array
+
+#### Example Successful Response
+
+```json
+[
+  {
+    "id": "UUID-1",
+    "isbn": "ISBN-1",
+    "name": "Book 1",
+    "author": "Author 1",
+    "price": 100
+  },
+  {
+    "id": "UUID-2",
+    "isbn": "ISBN-2",
+    "name": "Book 2",
+    "author": "Author 1",
+    "price": 200
+  }
+]
 ```
 
 #### Possible Errors
@@ -308,7 +344,6 @@ Updates a book of an author with given data and returns updated book
 | What              | When                                                                                         |
 | ----------------- | -------------------------------------------------------------------------------------------- |
 | Unexpected action | There is no author with given id, no book with given id or no book whose author has given id |
-| Already exists    | There is already a book with given isbn                                                      |
 
 ---
 
@@ -320,6 +355,13 @@ Deletes an author
 
 `200 OK` with no body
 
+#### Possible Errors
+
+| What              | When                                   |
+| ----------------- | ---------------------------------------|
+| Unexpected action | There is no author with given id       |
+| In use            | There are books assigned to the author |
+
 ---
 
 ### DELETE /authors/`authorId`/books/`bookId`
@@ -329,3 +371,9 @@ Deletes a book of an author
 #### Example Successful Response
 
 `200 OK` with no body
+
+#### Possible Errors
+
+| What              | When                                                                                         |
+| ----------------- | -------------------------------------------------------------------------------------------- |
+| Unexpected action | There is no author with given id, no book with given id or no book whose author has given id |

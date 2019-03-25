@@ -16,7 +16,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   override lazy val authorService: AuthorService[Id] = new AuthorService[Id](mockAuthorDAO)
 
   "Getting all authors" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val error = Errors.database("test")
 
       when(mockAuthorDAO.getAll).thenReturn(Maybe.error(error))
@@ -38,7 +38,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Getting an author by id" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val id    = UUID.randomUUID
       val error = Errors.database("test")
 
@@ -63,7 +63,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Getting authors by name" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val error = Errors.database("test")
 
       when(mockAuthorDAO.getByName("test")).thenReturn(Maybe.error(error))
@@ -87,7 +87,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Creating an author" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val createView = CreateAuthorView("")
       val error      = Errors.database("test")
 
@@ -141,7 +141,7 @@ class AuthorServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Deleting an author" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val id    = UUID.randomUUID
       val error = Errors.database("test")
 

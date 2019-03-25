@@ -19,7 +19,7 @@ class BookServiceUnitSpec extends UnitSpec with TestData {
   override lazy val bookService: BookService[Id] = new BookService[Id](mockBookDAO, mockAuthorService)
 
   "Getting all books" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val error = Errors.database("test")
 
       when(mockBookDAO.getAll).thenReturn(Maybe.error(error))
@@ -42,7 +42,7 @@ class BookServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Getting an book by author id and book id" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val authorId = UUID.randomUUID
       val bookId   = UUID.randomUUID
       val error    = Errors.database("test")
@@ -68,7 +68,7 @@ class BookServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Getting books by name" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val error = Errors.database("test")
 
       when(mockBookDAO.getByName("test")).thenReturn(Maybe.error(error))
@@ -92,7 +92,7 @@ class BookServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Creating a book" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val authorId   = UUID.randomUUID
       val createView = CreateBookView("", "", 1)
       val error      = Errors.database("test")
@@ -120,7 +120,7 @@ class BookServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Updating a book" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val authorId    = UUID.randomUUID
       val bookId      = UUID.randomUUID
       val updateView  = UpdateBookView("", "", 1)
@@ -149,7 +149,7 @@ class BookServiceUnitSpec extends UnitSpec with TestData {
   }
 
   "Deleting a book" should {
-    "return error when there is a DB error" in {
+    "return error when there is an error" in {
       val authorId = UUID.randomUUID
       val bookId   = UUID.randomUUID
       val error    = Errors.database("test")
