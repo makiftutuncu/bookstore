@@ -22,7 +22,7 @@ trait TestData { self: Components[Id] =>
       TestBooks.test2            -> TestAuthors.mehmetAkifTutuncu
     )
 
-  object TestAuthors extends TestDataGenerator[Author](authorDAO, "authors") {
+  object TestAuthors extends TestDataGenerator[Author]("authors", authorDAO.insertSql, database.transactor) {
     lazy val mehmetAkifTutuncu: Author =
       Author(
         id   = UUID.randomUUID,
@@ -42,7 +42,7 @@ trait TestData { self: Components[Id] =>
     override protected def deleteSql(author: Author): Fragment = authorDAO.deleteSql(author.id)
   }
 
-  object TestBooks extends TestDataGenerator[Book](bookDAO, "books") {
+  object TestBooks extends TestDataGenerator[Book]("books", bookDAO.insertSql, database.transactor) {
     lazy val icimizdekiSeytan: Book =
       Book(
         id       = UUID.randomUUID,

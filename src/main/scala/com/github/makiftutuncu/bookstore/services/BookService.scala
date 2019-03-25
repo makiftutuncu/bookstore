@@ -12,7 +12,7 @@ import com.github.makiftutuncu.bookstore.views.{BookView, CreateBookView, Update
 import scala.language.higherKinds
 
 class BookService[F[_]](override val dao: BookDAO[F], authorService: AuthorService[F])(implicit F: Effect[F]) extends Service[F, Book, BookView, CreateBookView, UpdateBookView](dao) {
-  override def getAll: Maybe[F, List[BookView]] =
+  def getAll: Maybe[F, List[BookView]] =
     Maybe.flatMap(dao.getAll) { books =>
       Convert[F, List].convert[Book, BookView](books, toView)
     }
@@ -22,7 +22,7 @@ class BookService[F[_]](override val dao: BookDAO[F], authorService: AuthorServi
       Convert[F, Id].convert[Book, BookView](book, toView)
     }
 
-  override def getByName(name: String): Maybe[F, List[BookView]] =
+  def getByName(name: String): Maybe[F, List[BookView]] =
     Maybe.flatMap(dao.getByName(name)) { books =>
       Convert[F, List].convert[Book, BookView](books, toView)
     }
@@ -40,7 +40,7 @@ class BookService[F[_]](override val dao: BookDAO[F], authorService: AuthorServi
   def delete(authorId: UUID, bookId: UUID): Maybe[F, Unit] =
     dao.delete(authorId, bookId)
 
-  override def toView(book: Book): Maybe[F, BookView] =
+  def toView(book: Book): Maybe[F, BookView] =
     Maybe.map(authorService.getById(book.authorId)) { author =>
       BookView(
         id     = book.id,

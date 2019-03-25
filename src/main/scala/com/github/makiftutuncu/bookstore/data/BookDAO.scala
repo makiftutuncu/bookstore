@@ -12,7 +12,7 @@ import doobie.util.fragment.Fragment
 import scala.language.higherKinds
 
 class BookDAO[F[_]](override val db: Database[F])(implicit F: Effect[F]) extends DAO[F, Book, CreateBookView, UpdateBookView](db) {
-  override def getAll: Maybe[F, List[Book]] = {
+  def getAll: Maybe[F, List[Book]] = {
     logger.debug("Getting all books")
 
     Maybe.attemptF {
@@ -45,7 +45,7 @@ class BookDAO[F[_]](override val db: Database[F])(implicit F: Effect[F]) extends
     }
   }
 
-  override def getByName(name: String): Maybe[F, List[Book]] = {
+  def getByName(name: String): Maybe[F, List[Book]] = {
     logger.debug(s"Getting books by name '$name'")
 
     Maybe.attemptF {
@@ -158,7 +158,7 @@ class BookDAO[F[_]](override val db: Database[F])(implicit F: Effect[F]) extends
     }
   }
 
-  override def insertSql(book: Book): Fragment =
+  def insertSql(book: Book): Fragment =
     sql"INSERT INTO books(id, name, isbn, author_id, price) VALUES(${book.id}::uuid, ${book.name}, ${book.isbn}, ${book.authorId}::uuid, ${book.price})"
 
   def deleteSql(authorId: UUID, bookId: UUID): Fragment =

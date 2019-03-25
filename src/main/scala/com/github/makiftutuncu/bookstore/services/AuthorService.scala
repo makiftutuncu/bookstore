@@ -12,7 +12,7 @@ import com.github.makiftutuncu.bookstore.views.{AuthorView, CreateAuthorView, Up
 import scala.language.higherKinds
 
 class AuthorService[F[_]](override val dao: AuthorDAO[F])(implicit F: Effect[F]) extends Service[F, Author, AuthorView, CreateAuthorView, UpdateAuthorView](dao) {
-  override def getAll: Maybe[F, List[AuthorView]] =
+  def getAll: Maybe[F, List[AuthorView]] =
     Maybe.flatMap(dao.getAll) { authors =>
       Convert[F, List].convert[Author, AuthorView](authors, toView)
     }
@@ -22,7 +22,7 @@ class AuthorService[F[_]](override val dao: AuthorDAO[F])(implicit F: Effect[F])
       Convert[F, Id].convert[Author, AuthorView](author, toView)
     }
 
-  override def getByName(name: String): Maybe[F, List[AuthorView]] =
+  def getByName(name: String): Maybe[F, List[AuthorView]] =
     Maybe.flatMap(dao.getByName(name)) { authors =>
       Convert[F, List].convert[Author, AuthorView](authors, toView)
     }
@@ -40,7 +40,7 @@ class AuthorService[F[_]](override val dao: AuthorDAO[F])(implicit F: Effect[F])
   def delete(id: UUID): Maybe[F, Unit] =
     dao.delete(id)
 
-  override def toView(author: Author): Maybe[F, AuthorView] =
+  def toView(author: Author): Maybe[F, AuthorView] =
     Maybe.value(
       AuthorView(
         id   = author.id,

@@ -1,14 +1,14 @@
 package com.github.makiftutuncu.bookstore
 
 import cats.Id
-import com.github.makiftutuncu.bookstore.data.DAO
 import com.github.makiftutuncu.bookstore.models.Model
 import com.github.makiftutuncu.bookstore.utilities.DoobieExtras
 import com.typesafe.scalalogging.LazyLogging
 import doobie.implicits._
 import doobie.util.fragment.Fragment
+import doobie.util.transactor.Transactor
 
-abstract class TestDataGenerator[M <: Model](dao: DAO[Id, M, _, _], table: String) extends DoobieExtras with LazyLogging {
+abstract class TestDataGenerator[M <: Model](table: String, insertSqlBuilder: M => Fragment, transactor: Transactor[Id]) extends DoobieExtras with LazyLogging {
   protected def deleteSql(m: M): Fragment
 
   def all: List[M]
@@ -18,10 +18,10 @@ abstract class TestDataGenerator[M <: Model](dao: DAO[Id, M, _, _], table: Strin
   def insert(model: M): Unit = {
     logger.debug(s"Inserting test data $model")
 
-    dao.insertSql(model)
+    insertSqlBuilder(model)
       .update
       .run
-      .transact(dao.db.transactor)
+      .transact(transactor)
   }
 
   def insertAll(): Unit = all foreach insert
@@ -32,7 +32,7 @@ abstract class TestDataGenerator[M <: Model](dao: DAO[Id, M, _, _], table: Strin
     deleteSql(model)
       .update
       .run
-      .transact(dao.db.transactor)
+      .transact(transactor)
   }
 
   private def truncateTable(table: String): Unit = {
@@ -43,6 +43,6 @@ abstract class TestDataGenerator[M <: Model](dao: DAO[Id, M, _, _], table: Strin
     Fragment.const(s)
       .update
       .run
-      .transact(dao.db.transactor)
+      .transact(transactor)
   }
 }
