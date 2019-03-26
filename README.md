@@ -17,6 +17,8 @@ At its core, bookstore is a [Finch](<https://github.com/finagle/finch>) app. To 
 
 A detailed API documentation is in [API.md](API.md).
 
+There is a Postman collection under [postman](postman) folder.
+
 ## Configuration
 
 Bookstore can be configured via [application.conf](src/main/resources/application.conf) and [test.conf](src/test/resources/test.conf) files for running and testing respectively. You can also override any config with following environment variables.

@@ -1,0 +1,1336 @@
+{
+	"info": {
+		"_postman_id": "38c98150-196b-495e-82af-b5c67d8449d2",
+		"name": "BookStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createAuthor",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07d9033a-67f4-4055-9fe6-e4a1637713f8",
+						"exec": [
+							"var options = { method: 'GET',",
+							"  url: 'http://localhost:8081/authors',",
+							"  headers: ",
+							"   { 'cache-control': 'no-cache' } };",
+							"",
+							"pm.sendRequest(options, function (error, response) ",
+							"{",
+							"  if (error) throw new Error(error);",
+							"  r = response.json();",
+							"  console.log(r)",
+							"  for(i=0; i<r.length; i++)",
+							"  {",
+							"      if(r[i].name == \"Author 1\") ",
+							"      {",
+							"          var authorId = r[i].id;",
+							"          console.log(authorId);",
+							"          ",
+							"          //Get all books",
+							"          var options = { method: 'GET',",
+							"                url: 'http://localhost:8081/books',",
+							"                headers: ",
+							"                     { 'cache-control': 'no-cache' } ",
+							"          };",
+							"          ",
+							"            pm.sendRequest(options, function (error, response) {",
+							"                if (error) throw new Error(error);",
+							"                m = response.json();",
+							"                console.log(m);",
+							"                for(i=0; i<m.length; i++) {",
+							"                    if(m[i].name == \"Book 1\") {",
+							"                            var id = m[i].id;",
+							"                             console.log(id);",
+							"                             ",
+							"                             //Delete specific book",
+							"                             var options = { method: 'DELETE',",
+							"                             url: 'http://localhost:8081/authors/' + authorId + '/books/' + id,",
+							"                             header: ",
+							"                                { 'cache-control': 'no-cache'} };",
+							"                 ",
+							"                             pm.sendRequest(options, function (error, response) {",
+							"                             if (error) throw new Error(error);",
+							"                                    ",
+							"                            });",
+							"                               ",
+							"                    };",
+							"              };",
+							"                                 //delete author",
+							"                                var options = { method: 'DELETE',",
+							"                                url: 'http://localhost:8081/authors/' + authorId ,",
+							"                                header: ",
+							"                                    { 'cache-control': 'no-cache'} };",
+							"                 ",
+							"                                pm.sendRequest(options, function (error, response) {",
+							"                                 if (error) throw new Error(error);",
+							"                                });",
+							"          });",
+							"      };",
+							"  };",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1c173ea-5a5f-47a1-b89a-8c0cefa62c0c",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"authorId\", jsonData.id);",
+							"postman.setEnvironmentVariable(\"authorName\", jsonData.name);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Author 1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createAuthorAlreadyExist",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07d9033a-67f4-4055-9fe6-e4a1637713f8",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1c173ea-5a5f-47a1-b89a-8c0cefa62c0c",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Author 1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createBook",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "efe33b7a-fca7-43ac-bbb1-2fb85846cdd0",
+						"exec": [
+							"var options = { method: 'GET',",
+							"  url: 'http://localhost:8081/authors',",
+							"  headers: ",
+							"   { 'cache-control': 'no-cache' } };",
+							"",
+							"pm.sendRequest(options, function (error, response) ",
+							"{",
+							"  if (error) throw new Error(error);",
+							"  r = response.json();",
+							"  console.log(r)",
+							"  for(i=0; i<r.length; i++)",
+							"  {",
+							"      if(r[i].name == \"Author 1\") ",
+							"      {",
+							"          var authorId = r[i].id;",
+							"          console.log(authorId);",
+							"          ",
+							"          //Get all books",
+							"          var options = { method: 'GET',",
+							"                url: 'http://localhost:8081/books',",
+							"                headers: ",
+							"                     { 'cache-control': 'no-cache' } ",
+							"          };",
+							"          ",
+							"            pm.sendRequest(options, function (error, response) {",
+							"                if (error) throw new Error(error);",
+							"                m = response.json();",
+							"                console.log(m);",
+							"                for(i=0; i<m.length; i++) {",
+							"                    if(m[i].name == \"Book 1\") {",
+							"                            var id = m[i].id;",
+							"                             console.log(id);",
+							"                             ",
+							"                             //Delete specific book",
+							"                             var options = { method: 'DELETE',",
+							"                             url: 'http://localhost:8081/authors/' + authorId + '/books/' + id,",
+							"                             header: ",
+							"                                { 'cache-control': 'no-cache'} };",
+							"                 ",
+							"                             pm.sendRequest(options, function (error, response) {",
+							"                             if (error) throw new Error(error);",
+							"                                    ",
+							"                            });",
+							"                               ",
+							"                    };",
+							"              };",
+							"          });",
+							"      };",
+							"  };",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6260914-888a-4136-b30e-0190a31e6b40",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"bookId\", jsonData.id);",
+							"postman.setEnvironmentVariable(\"bookName\", jsonData.name);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isbn\": \"ISBN-1\",\n  \"name\": \"Book 1\",\n  \"price\": 100\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createBookForNonExistAuthor",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "efe33b7a-fca7-43ac-bbb1-2fb85846cdd0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6260914-888a-4136-b30e-0190a31e6b40",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isbn\": \"ISBN-1\",\n  \"name\": \"Book 1\",\n  \"price\": 100\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"ff46087c-a06d-43f3-b1a9-06f4c4551111",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createBookAlreadyExist",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "efe33b7a-fca7-43ac-bbb1-2fb85846cdd0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6260914-888a-4136-b30e-0190a31e6b40",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isbn\": \"ISBN-1\",\n  \"name\": \"Book 1\",\n  \"price\": 100\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createBookForNonExistAuthor",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "efe33b7a-fca7-43ac-bbb1-2fb85846cdd0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6260914-888a-4136-b30e-0190a31e6b40",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isbn\": \"ISBN-1\",\n  \"name\": \"Book 1\",\n  \"price\": 100\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"ff46087c-a06d-43f3-b1a9-06f4c4551111",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllAuthors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b7ea9d9-d853-4f0e-8d4b-42d454a22298",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllBooks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c5c68e3-4fb0-46c7-b40c-5d38a09434bf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpecificAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6ad8d63c-29b5-4274-b719-5c2760c1afd5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpecificAuthorForNonExistAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6ad8d63c-29b5-4274-b719-5c2760c1afd5",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"ff46087c-a06d-43f3-b1a9-06f4c4551111"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpecificAuthorBooks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "955e8d82-818c-4ae1-a0b0-d3f30f6dc424",
+						"exec": [
+							"//Not implemented",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpecificAuthorBooksForNonExistAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "955e8d82-818c-4ae1-a0b0-d3f30f6dc424",
+						"exec": [
+							"//Not implemented",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"ff46087c-a06d-43f3-b1a9-06f4c4551111",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAuthorSpecificBook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e14dfe4e-c9a5-4158-b63e-5bb136e46278",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}/books/{{bookId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}",
+						"books",
+						"{{bookId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAuthorSpecificBookForNonExistBook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e14dfe4e-c9a5-4158-b63e-5bb136e46278",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}/books/ff46087c-a06d-43f3-b1a9-06f4c4551111",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}",
+						"books",
+						"ff46087c-a06d-43f3-b1a9-06f4c4551111"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAuthorSpecificBookForNonExistAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e14dfe4e-c9a5-4158-b63e-5bb136e46278",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books/{{bookId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"ff46087c-a06d-43f3-b1a9-06f4c4551111",
+						"books",
+						"{{bookId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAuthorAccordingToName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors?name={{authorName}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{authorName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBookAccordingToName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/books?name={{bookName}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{bookName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba4c1b34-623a-431b-b4a6-47dc4bcb5c03",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Author 1 Updated\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateAuthorAlreadyExist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2998c492-69ef-4c19-b68a-7533634b9091",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Author 1 Updated\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateAuthorNonExistAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2998c492-69ef-4c19-b68a-7533634b9091",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Author 1 Updated\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"ff46087c-a06d-43f3-b1a9-06f4c4551111"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateBook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dfa07874-77d6-4252-a040-d269abec9d38",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isbn\": \"ISBN-1 Updated\",\n  \"name\": \"Book 1 Updated\",\n  \"price\": 200\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}/books/{{bookId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}",
+						"books",
+						"{{bookId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateBookForNonExistBook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dfa07874-77d6-4252-a040-d269abec9d38",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isbn\": \"ISBN-1 Updated\",\n  \"name\": \"Book 1 Updated\",\n  \"price\": 200\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}/books/546465464",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}",
+						"books",
+						"546465464"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateBookForNonExistAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d786734-39d5-4d2b-810e-02c9ce6b9dec",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isbn\": \"ISBN-1 Updated\",\n  \"name\": \"Book 1 Updated\",\n  \"price\": 200\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/54354646456/books/{{bookId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"54354646456",
+						"books",
+						"{{bookId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b0f7bb54-eda1-4ebf-901b-268a790f8204",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}/books/{{bookId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}",
+						"books",
+						"{{bookId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBookForNonExistBook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5d24145-060f-41ad-9737-78f19bcdba08",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}/books/fregregrtgrt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}",
+						"books",
+						"fregregrtgrt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBookForNonExistAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13eb516f-2a6b-449e-ba87-bd19b35e70f4",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/543544546/books/{{bookId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"543544546",
+						"books",
+						"{{bookId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "943bba5c-9128-4c4d-96ff-e4af50807fd5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/{{authorId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"{{authorId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteAuthorforNonExistAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00d21bda-f41e-470e-be59-a6a3c127fd8c",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8081/authors/45435464",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"authors",
+						"45435464"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

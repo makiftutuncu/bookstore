@@ -45,3 +45,4 @@ There are integration tests for DAO layer. These do call real components. Only e
 There are functional tests for controllers. They are blackbox tests according to API documentation. They give input, they expect a certain output. Occasionally, they check the integrity of the data.
 
 Finally there are end to end API tests with a Postman Collection. These are also blackbox tests and nothing more than previously set up HTTP requests.
+
