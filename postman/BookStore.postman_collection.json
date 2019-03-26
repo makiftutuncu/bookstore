@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "38c98150-196b-495e-82af-b5c67d8449d2",
+		"_postman_id": "24aecbfd-eef4-4508-b4d8-8a089e12e5f8",
 		"name": "BookStore",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -108,12 +108,10 @@
 					"raw": "{\n  \"name\": \"Author 1\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors",
-					"protocol": "http",
+					"raw": "{{host}}/authors",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors"
 					]
@@ -162,12 +160,10 @@
 					"raw": "{\n  \"name\": \"Author 1\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors",
-					"protocol": "http",
+					"raw": "{{host}}/authors",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors"
 					]
@@ -269,12 +265,10 @@
 					"raw": "{\n  \"isbn\": \"ISBN-1\",\n  \"name\": \"Book 1\",\n  \"price\": 100\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}/books",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}/books",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}",
@@ -325,12 +319,10 @@
 					"raw": "{\n  \"isbn\": \"ISBN-1\",\n  \"name\": \"Book 1\",\n  \"price\": 100\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books",
-					"protocol": "http",
+					"raw": "{{host}}/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"ff46087c-a06d-43f3-b1a9-06f4c4551111",
@@ -381,12 +373,10 @@
 					"raw": "{\n  \"isbn\": \"ISBN-1\",\n  \"name\": \"Book 1\",\n  \"price\": 100\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}/books",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}/books",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}",
@@ -437,12 +427,10 @@
 					"raw": "{\n  \"isbn\": \"ISBN-1\",\n  \"name\": \"Book 1\",\n  \"price\": 100\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books",
-					"protocol": "http",
+					"raw": "{{host}}/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"ff46087c-a06d-43f3-b1a9-06f4c4551111",
@@ -476,12 +464,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors",
-					"protocol": "http",
+					"raw": "{{host}}/authors",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors"
 					]
@@ -513,12 +499,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/books",
-					"protocol": "http",
+					"raw": "{{host}}/books",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"books"
 					]
@@ -550,12 +534,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}"
@@ -588,12 +570,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111",
-					"protocol": "http",
+					"raw": "{{host}}/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"ff46087c-a06d-43f3-b1a9-06f4c4551111"
@@ -627,12 +607,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}/books",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}/books",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}",
@@ -667,12 +645,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books",
-					"protocol": "http",
+					"raw": "{{host}}/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"ff46087c-a06d-43f3-b1a9-06f4c4551111",
@@ -706,12 +682,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}/books/{{bookId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}/books/{{bookId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}",
@@ -746,12 +720,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}/books/ff46087c-a06d-43f3-b1a9-06f4c4551111",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}/books/ff46087c-a06d-43f3-b1a9-06f4c4551111",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}",
@@ -786,12 +758,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books/{{bookId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111/books/{{bookId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"ff46087c-a06d-43f3-b1a9-06f4c4551111",
@@ -812,12 +782,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors?name={{authorName}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors?name={{authorName}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors"
 					],
@@ -841,12 +809,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/books?name={{bookName}}",
-					"protocol": "http",
+					"raw": "{{host}}/books?name={{bookName}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"books"
 					],
@@ -891,12 +857,10 @@
 					"raw": "{\n  \"name\": \"Author 1 Updated\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}"
@@ -936,12 +900,10 @@
 					"raw": "{\n  \"name\": \"Author 1 Updated\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}"
@@ -981,12 +943,10 @@
 					"raw": "{\n  \"name\": \"Author 1 Updated\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111",
-					"protocol": "http",
+					"raw": "{{host}}/authors/ff46087c-a06d-43f3-b1a9-06f4c4551111",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"ff46087c-a06d-43f3-b1a9-06f4c4551111"
@@ -1026,12 +986,10 @@
 					"raw": "{\n  \"isbn\": \"ISBN-1 Updated\",\n  \"name\": \"Book 1 Updated\",\n  \"price\": 200\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}/books/{{bookId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}/books/{{bookId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}",
@@ -1073,12 +1031,10 @@
 					"raw": "{\n  \"isbn\": \"ISBN-1 Updated\",\n  \"name\": \"Book 1 Updated\",\n  \"price\": 200\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}/books/546465464",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}/books/546465464",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}",
@@ -1120,12 +1076,10 @@
 					"raw": "{\n  \"isbn\": \"ISBN-1 Updated\",\n  \"name\": \"Book 1 Updated\",\n  \"price\": 200\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/54354646456/books/{{bookId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/54354646456/books/{{bookId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"54354646456",
@@ -1160,12 +1114,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}/books/{{bookId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}/books/{{bookId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}",
@@ -1200,12 +1152,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}/books/fregregrtgrt",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}/books/fregregrtgrt",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}",
@@ -1240,12 +1190,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/543544546/books/{{bookId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/543544546/books/{{bookId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"543544546",
@@ -1280,12 +1228,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/{{authorId}}",
-					"protocol": "http",
+					"raw": "{{host}}/authors/{{authorId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"{{authorId}}"
@@ -1318,12 +1264,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8081/authors/45435464",
-					"protocol": "http",
+					"raw": "{{host}}/authors/45435464",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8081",
 					"path": [
 						"authors",
 						"45435464"
