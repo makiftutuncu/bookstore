@@ -3,7 +3,7 @@
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [API Documentation](API.md)
+2. [Configuration](#configuration)
 3. [Development](#development)
 4. [Testing](#testing)
 5. [Contributing](#contributing)
@@ -14,6 +14,21 @@
 Bookstore is a backend application written in Scala. It is a dummy REST API for authors and books. Its main purpose is to showcase how a backend application can be separated into layers and how they can be tested via different types of automated tests. For more details, see [PRESENTATION.md](PRESENTATION.md).
 
 At its core, bookstore is a [Finch](<https://github.com/finagle/finch>) app. To see all external dependencies, check out [build.sbt](build.sbt) file.
+
+A detailed API documentation is in [API.md](API.md).
+
+## Configuration
+
+Bookstore can be configured via [application.conf](src/main/resources/application.conf) and [test.conf](src/test/resourcces/test.conf) files for running and testing respectively. You can also override any config with following environment variables.
+
+| Variable Name     | Data Type | Description                |
+| ----------------- | --------- | -------------------------- |
+| BOOKSTORE_DB_HOST | String    | Database host              |
+| BOOKSTORE_DB_PORT | Int       | Database port              |
+| BOOKSTORE_DB_NAME | String    | Database name              |
+| BOOKSTORE_DB_USER | String    | Database user              |
+| BOOKSTORE_DB_PASS | String    | Database user's password   |
+| BOOKSTORE_PORT    | Int       | Application's running port |
 
 ## Development and Running
 

@@ -377,3 +377,4 @@ Deletes a book of an author
 | What              | When                                                                                         |
 | ----------------- | -------------------------------------------------------------------------------------------- |
 | Unexpected action | There is no author with given id, no book with given id or no book whose author has given id |
+
