@@ -19,7 +19,7 @@ A detailed API documentation is in [API.md](API.md).
 
 ## Configuration
 
-Bookstore can be configured via [application.conf](src/main/resources/application.conf) and [test.conf](src/test/resourcces/test.conf) files for running and testing respectively. You can also override any config with following environment variables.
+Bookstore can be configured via [application.conf](src/main/resources/application.conf) and [test.conf](src/test/resources/test.conf) files for running and testing respectively. You can also override any config with following environment variables.
 
 | Variable Name     | Data Type | Description                |
 | ----------------- | --------- | -------------------------- |
